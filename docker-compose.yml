@@ -1,0 +1,29 @@
+version: '3.5'
+services:
+  db-utc:
+    image: postgres:10-alpine
+    command: ["postgres", "-c", "log_statement=all", "-c", "log_destination=stderr"]
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      PGDATA: /data/postgres
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+    ports:
+      - 5000:5432
+    restart: unless-stopped
+  db-moscow:
+    image: postgres:10-alpine
+    command: ["postgres", "-c", "log_statement=all", "-c", "log_destination=stderr"]
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      PGDATA: /data/postgres
+      TZ: "Europe/Moscow"
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+    ports:
+      - 5001:5432
+    restart: unless-stopped
+     
+  
