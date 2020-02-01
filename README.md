@@ -12,7 +12,7 @@
 | time with timezone |   12   | только время суток (с поясом)     | 00:00:00+1459       | 24:00:00-1459       |
 | interval           |   16   | временной интервал                | -178000000 лет      | 178000000 лет       |
 
-Поля без часового пояса обрезают сдвиг, это очень осложняет работу. Лучше использовать timestamptz вместо timestamp. 
+Поля без часового пояса обрезают сдвиг, это очень осложняет работу. Лучше использовать timestamptz вместо timestamp. Хотя не факт. 
 
 [timestamp vs timestamptz](https://medium.com/building-the-system/how-to-store-dates-and-times-in-postgresql-269bda8d6403)
 
