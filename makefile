@@ -1,6 +1,8 @@
-.PHONY: all fmt lint test build clean help
+PKG := "github.com/delgus/gopostgres-time"
 
-all: fmt dep lint test build
+.PHONY: all fmt dep lint build clean help
+
+all: fmt dep lint build
 
 fmt: ## gofmt all project
 	@gofmt -l -s -w .
@@ -11,14 +13,11 @@ dep: ## make dependencies
 lint: ## Lint the files
 	@golangci-lint run
 
-test: ## Run unittests
-	@go test -short ./... -coverprofile=coverage.txt
-
 build: ## Build the binary file
-	@go build
+	@go build -a -o ex1 -v $(PKG)/cmd/ex1
 
 clean: ## Remove previous build
-	@rm -f gopostgres-time
+	@rm -f ex1
 
 help: ## Display this help screen
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

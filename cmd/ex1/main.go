@@ -40,15 +40,16 @@ func main() {
 		log.Fatal(err)
 	}
 	moscowTime := time.Date(2020, 1, 1, 12, 12, 12, 0, loc)
-	moscowRecord := newRecord(`MoscowRecord`, moscowTime)
+	moscowRecord := newRecord(`MoscowRecord_ex1`, moscowTime)
 
 	// UTC office
 	utcTime := time.Date(2020, 1, 1, 9, 12, 12, 0, time.UTC)
-	utcRecord := newRecord(`UTCRecord`, utcTime)
+	utcRecord := newRecord(`UTCRecord_ex1`, utcTime)
 
 	// Unicorn office
-	unicornTime := time.Date(2020, 1, 1, 10, 12, 12, 0, time.FixedZone(`Unicorn`, 3600))
-	unicornRecord := newRecord(`UnicornRecord`, unicornTime)
+	unicornTZ := time.FixedZone(`Unicorn`, 3600)
+	unicornTime := time.Date(2020, 1, 1, 10, 12, 12, 0, unicornTZ)
+	unicornRecord := newRecord(`UnicornRecord_ex1`, unicornTime)
 
 	// Save records in databases
 	if err := insertRecord(dbMoscow, moscowRecord); err != nil {
@@ -64,6 +65,7 @@ func main() {
 	if err := insertRecord(dbUTC, utcRecord); err != nil {
 		log.Fatal(err)
 	}
+
 	if err := insertRecord(dbMoscow, unicornRecord); err != nil {
 		log.Fatal(err)
 	}
